@@ -11,9 +11,9 @@ var bikeIconClass = L.Icon.extend({
 });
 
 // var iconpath = 'bysykkel_icons/bysykkel_18x18png/';
-var iconpath = 'bysykkel_icons/bysykkel_27x27png/';
-//var iconpath = 'bysykkel_icons/bysykkel_36x36png/';
-//var iconpath = 'bysykkel_icons/bysykkel_48x48png/';
+// var iconpath = 'bysykkel_icons/bysykkel_27x27png/';
+var iconpath = 'bysykkel_icons/bysykkel_36x36png/';
+// var iconpath = 'bysykkel_icons/bysykkel_48x48png/';
 
 
 var bikeICon_bikeOK_lockOK   = new bikeIconClass( { iconUrl: iconpath + 'bysykkel_bikeOK_lockOK.png' });
@@ -127,7 +127,8 @@ var bysykkelurl =  'https://jansimple.pythonanywhere.com/getfile/bysykkelOslo.ge
 
 
 var map = L.map('map'),
-    clusterGroup = L.markerClusterGroup().addTo(map),
+    clusterGroup = L.markerClusterGroup({ disableClusteringAtZoom : 15,
+                                            spiderfyOnMaxZoom: false }).addTo(map),
 //    subgroup1 = L.featureGroup.subGroup(clusterGroup),
     subgroup2 = L.featureGroup.subGroup(clusterGroup),
 //    realtime1 = createRealtimeLayer('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson', subgroup1).addTo(map),
@@ -152,7 +153,7 @@ L.control.layers(null, {
 }).addTo(map);
 
 realtime2.once('update', function() {
-    map.fitBounds(realtime2.getBounds(), {maxZoom: 12});
+    map.fitBounds(realtime2.getBounds(), {maxZoom: 14});
 });
 
 
