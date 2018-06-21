@@ -19,11 +19,13 @@ Current implementation is python flask app run at pythonanywhere, but can run on
 
 The script `pythonbackend/bysykkeloslo.py` runs an infinite loop fetching data from https://developer.oslobysykkel.no/ . We have a merge process, where presumably static data with station locations (pulled once) are merged with fresh status updates (pulled every 15th second).
 
-I have implemented the tips from https://help.pythonanywhere.com/pages/LongRunningTasks/ to keep the process running smoothly. Only one instance of this script can run at any time. Every hour we try to start it - which either fails (which is fine, one process is running), or succeeds.
+I have implemented the tips from https://help.pythonanywhere.com/pages/LongRunningTasks/ to keep the process running smoothly. Only one instance of this script can run at any time. Every hour we try to start it - which either fails (which is fine, one process is running), or succeeds. If (or rather, when -- see next paragraph) the process crashes the data won't be updated until the next hour.
 
 ### Production hardening
 
 There is absolutely NO input validation. The process WILL CRASH if the next REST GET operation does not go through or return incomplete data. Battle hardening with appropriate tests is straightforward, but left as exercise to the reader.
+
+Another option is to delete the while-loop and just run the script once every N second. 
 
 ### Debugging
 
