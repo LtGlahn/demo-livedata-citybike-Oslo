@@ -13,7 +13,7 @@ Bike stations are shown as bike and locks symbols. Orange means 3 or fewer bikes
 
 # Backend
 
-Current implementation is python flask app run at pythonanywhere, but can run on any machine with python >= 3.4 able to serve files on internet with appropriate CORS header.
+Current implementation is python flask app run at pythonanywhere, but can run on any machine with python >= 3.4 able to serve files on internet with appropriate CORS header (`accept-origin:*`, or yoursite.com). Or put the backend at the same server as the web (frontend), and you'll be _same origin_, avoiding the need for CORS (cross origin). 
 
 ### Pulling data from oslobysykkel.no
 
@@ -21,7 +21,7 @@ The script `pythonbackend/bysykkeloslo.py` runs an infinite loop fetching data f
 
 I have implemented the tips from https://help.pythonanywhere.com/pages/LongRunningTasks/ to keep the process running smoothly. Only one instance of this script can run at any time. Every hour we try to start a new process. If one process is running we let it be, if not we start a new one.
 
-If _(or rather when, see next paragrahp)_ the script crashes the data won't be updated before the next time we restart the script. Worst case is data will be close to an hour old before we've restarted. Of course, that's assuming valid data actually are available from the API. 
+If _(or rather when, see next paragrahp)_ the script crashes the data won't be updated before the next time we restart the script. Worst case is data will be close to an hour old before we've restarted. Of course, that's assuming valid data actually are available from the API.
 
 ### Production hardening
 
