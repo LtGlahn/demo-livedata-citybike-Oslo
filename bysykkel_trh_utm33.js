@@ -150,7 +150,7 @@ function createRealtimeLayer(url, container) {
 
 // var bysykkelurl = 'https://jansimple.pythonanywhere.com/getfile/bysyklerDebugOslo.geojson';
 // var bysykkelurl =  'https://jansimple.pythonanywhere.com/getfile/bysykkelOslo.geojson';
-var bysykkelurl =  'http://localhost:8000/RESTtrondheim/trhbysykkel.geojson';
+var bysykkelurl =  './RESTtrondheim/trhbysykkel.geojson';
 
 var map = L.map('map', {crs : crs}),
     clusterGroup = L.markerClusterGroup({ disableClusteringAtZoom : 13,
