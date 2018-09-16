@@ -151,16 +151,16 @@ function createRealtimeLayer(url, container) {
 // var bysykkelurl = 'https://jansimple.pythonanywhere.com/getfile/bysyklerDebugOslo.geojson';
 // var bysykkelurl =  'https://jansimple.pythonanywhere.com/getfile/bysykkelOslo.geojson';
 var bysykkelurl =  './RESTtrondheim/trhbysykkel.geojson';
-// var bysykkelurl =  'https://leik.ltglahn.no/bysykkel/RESTtrondheim/trhbysykkel.geojson';
+//var bysykkelurl =  'https://leik.ltglahn.no/bysykkel/RESTtrondheim/trhbysykkel.geojson';
 
 var map = L.map('map', {crs : crs}),
-    clusterGroup = L.markerClusterGroup({ disableClusteringAtZoom : 13,
+    clusterGroup = L.markerClusterGroup({ disableClusteringAtZoom : 12,
                                             spiderfyOnMaxZoom: false }).addTo(map),
 //    subgroup1 = L.featureGroup.subGroup(clusterGroup),
     subgroup2 = L.featureGroup.subGroup(clusterGroup),
 //    realtime1 = createRealtimeLayer('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson', subgroup1).addTo(map),
-    realtime2 = createRealtimeLayer(bysykkelurl, subgroup2).addTo(map);
-
+//    realtime2 = createRealtimeLayer(bysykkelurl, subgroup2).addTo(map);
+      realtime2 = createRealtimeLayer({ url: bysykkelurl, mode: 'no-cors'}, subgroup2).addTo(map);
 /*
 
 L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}{r}.png', {
@@ -201,7 +201,7 @@ function onLocationFound(e) {
     var radius = e.accuracy / 2;
 
     if (map.hasLayer(minpos)) {
-      minpos.setLatLng( e.latlng); 
+      minpos.setLatLng( e.latlng);
     } else {
 
       minpos = L.marker(e.latlng);
