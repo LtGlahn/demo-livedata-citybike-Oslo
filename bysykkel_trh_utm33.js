@@ -150,8 +150,8 @@ function createRealtimeLayer(url, container) {
 
 // var bysykkelurl = 'https://jansimple.pythonanywhere.com/getfile/bysyklerDebugOslo.geojson';
 // var bysykkelurl =  'https://jansimple.pythonanywhere.com/getfile/bysykkelOslo.geojson';
-// var bysykkelurl =  './RESTtrondheim/trhbysykkel.geojson';
-var bysykkelurl =  'https://leik.ltglahn.no/bysykkel/RESTtrondheim/trhbysykkel.geojson';
+var bysykkelurl =  './RESTtrondheim/trhbysykkel.geojson';
+// var bysykkelurl =  'https://leik.ltglahn.no/bysykkel/RESTtrondheim/trhbysykkel.geojson';
 
 var map = L.map('map', {crs : crs}),
     clusterGroup = L.markerClusterGroup({ disableClusteringAtZoom : 13,
@@ -196,13 +196,19 @@ L.easyButton('fa-crosshairs fa-lg', function(btn, map){
     map.locate({setView: true, maxZoom: 16});
 }).addTo( map );
 
+var minpos;
 function onLocationFound(e) {
     var radius = e.accuracy / 2;
 
-    L.marker(e.latlng).addTo(map)
-        // .bindPopup("You are within " + radius + " meters from this point").openPopup();
+    if (map.hasLayer(minpos)) {
+      minpos.setLatLng( e.latlng); 
+    } else {
 
-    // L.circle(e.latlng, radius).addTo(map);
+      minpos = L.marker(e.latlng);
+      minpos.addTo(map)
+          // .bindPopup("You are within " + radius + " meters from this point").openPopup();
+      // L.circle(e.latlng, radius).addTo(map);
+    }
 }
 
 map.on('locationfound', onLocationFound);
