@@ -150,7 +150,7 @@ function createRealtimeLayer(url, container) {
 
 // var bysykkelurl = 'https://jansimple.pythonanywhere.com/getfile/bysyklerDebugOslo.geojson';
 // var bysykkelurl =  'https://jansimple.pythonanywhere.com/getfile/bysykkelOslo.geojson';
-var bysykkelurl =  'https://leik.ltglahn.no/bysykkel/RESTtrondheim/oslobysykkel.geojson';
+var bysykkelurl =  'https://leik.ltglahn.no/bysykkelREST/oslobysykkel.geojson';
 
 
 var map = L.map('map', {crs : crs}),
