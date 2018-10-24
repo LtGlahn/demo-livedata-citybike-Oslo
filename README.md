@@ -13,7 +13,25 @@ Bike stations are shown as bike and locks symbols. Orange means 3 or fewer bikes
 
 # Backend
 
-Current implementation is python flask app run at pythonanywhere, but can run on any machine with python >= 3.4 able to serve files on internet with appropriate CORS header (`accept-origin:*`, or yoursite.com). Or put the backend at the same server as the web (frontend), and you'll be _same origin_, avoiding the need for CORS (cross origin). 
+Backend can be any web server capable of updating and publishing the appropriate geojson-file with appropriate CORS permissions (or circimventing the problem by adding the http header `accept-origin:*`, no matter what). Or put the backend at the same server as the web (frontend), and you'll be _same origin_, avoiding the need for CORS (cross origin).
+
+I've played with two different backends:  
+  * A super-simple python script run regulary at [pythonanywhere](https://pythonanywhere.com)
+  * Flows in [node-red](https://nodered.org) run at a cloud linux machine. 
+  
+## Backend no 1: Flows in node-red (Trondheim and Oslo)
+
+https://nodered.org/ is fantastic for this kind of thing. My flows for pulling bicycle data from Trondheim and Oslo are included in the repos. They are very far from optimal and elegant, but considering this is my very first node-red project I'm not too picky. 
+
+The process is as follows: 
+  * Pull location data (lat, lon) and names of city stations once each hour, put them in local mongodb
+  * Pull city bike station updates every 10th second, merge with station data from local mongodb, dump geojson
+
+## Backend no 2: Python script for Oslo citybike data 
+
+This was the quickest solution I could whip up at short notice. Web server is python flask app run at pythonanywhere, but can run on any machine with python >= 3.4 able to serve files on internet with appropriate. The script pulls two data sets from __Oslo bysykkel__, puts the data in pandas dataframes and merges them on common ID. This dataframe becomes a *Geodataframe* [geopandas](http://geopandas.org/), which is then dumped to geojson. 
+
+The disadvantage of using generic dataframes / geodataframes is that they are resource intensive, so Pythonanywhere.com keeps nagging me with __your processes are in the tar pit__. The problem is essentially merging two datastructures (list and dicts), and write out a geojson. Just hardcoding that in plain python isn't exactly difficult, and will probably be far less resource-intensive. But if you're familiar with pandas and geodataframes, my solution was quickest to write... 
 
 ### Pulling data from oslobysykkel.no
 
