@@ -13,7 +13,7 @@ Bike stations are shown as bike and locks symbols. Orange means 3 or fewer bikes
 
 # Backend
 
-Backend can be any web server capable of updating and publishing the appropriate geojson-file with appropriate CORS permissions (or circimventing the problem by adding the http header `accept-origin:*`, no matter what). Or put the backend at the same server as the web (frontend), and you'll be _same origin_, avoiding the need for CORS (cross origin).
+Backend can be any web server capable of updating and publishing the appropriate geojson-file with appropriate CORS permissions (or circimventing the problem by adding the http header `accept-origin:*`, no matter what). Or serve this geojson-file from the same web server as the map frontend, and you'll be _same origin_, avoiding the need for CORS (cross origin).
 
 I've played with two different backends:  
   * A super-simple python script run regulary at [pythonanywhere](https://pythonanywhere.com)
